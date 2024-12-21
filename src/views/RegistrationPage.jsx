@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ArrowUpRight, Mail, Lock, Building2, ArrowLeft } from 'lucide-react';
@@ -8,6 +8,10 @@ import { validateEmail } from "../utils/emailValidator";
 
 export default function RegistrationPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -55,6 +55,7 @@ import OrderFailedPage from "./views/OrderFailedPage";
 import TermsPage from "./views/LegalPages/TermsPage";
 import PrivacyPage from "./views/LegalPages/PrivacyPage";
 import NotFoundPage from "./views/NotFoundPage";
+import ContactPage from "./views/LandingPage/ContactPage";
 
 export default function App() {
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(
@@ -236,6 +237,8 @@ export default function App() {
 
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
+
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Catch-all route pour 404 */}
           <Route path="*" element={<NotFoundPage />} />

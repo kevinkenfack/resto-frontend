@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ArrowUpRight, Mail, ArrowLeft } from 'lucide-react';
 import Logo from "../assets/logo.svg";
 import { forgotPassword } from "../controllers/auth.controller";
 
+
 export default function ForgotPasswordPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

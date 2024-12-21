@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Logo from "../../assets/logo.svg";
 import Footer from '../LandingPage/Footer';
 
 export default function PrivacyPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <header className="border-b bg-white sticky top-0 z-50">
