@@ -1,14 +1,18 @@
-import React from "react";
-import Logo from "../assets/logo.svg";
-import { toast } from "react-hot-toast";
+import React, { useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Lock, ArrowLeft } from 'lucide-react';
+import Logo from "../assets/logo.svg";
 import { resetPassword } from "../controllers/auth.controller";
-
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,18 +20,18 @@ export default function ResetPasswordPage() {
     const password = e.target.password.value;
 
     if(!token) {
-      toast.error("Invalid request!");
+      toast.error("Requête invalide !");
       return;
     }
     
     if (!password) {
       e.target.password.focus();
-      toast.error("Please provide new password!");
+      toast.error("Veuillez fournir un nouveau mot de passe !");
       return;
     }
 
     try {
-      toast.loading("Please wait...");
+      toast.loading("Veuillez patienter...");
 
       const res = await resetPassword(token, password);
       if(res.status == 200) {
@@ -37,56 +41,82 @@ export default function ResetPasswordPage() {
       }
     } catch (error) {
       console.error(error);
-      const message = error?.response?.data?.message || "Error processing your request, Please try later!";
+      const message = error?.response?.data?.message || "Une erreur est survenue. Réessayez plus tard !";
       toast.dismiss();
       toast.error(message);
     }
   };
 
   return (
-    <div className="bg-restro-green-light relative overflow-x-hidden md:overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-restro-green/5 to-restro-green-dark/5 relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-restro-green/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-restro-green-dark/10 rounded-full blur-3xl" />
+      </div>
 
-      <img src="/assets/circle_illustration.svg" alt="illustration" className="absolute w-96 lg:w-[1024px] h-96 lg:h-[1024px]  lg:-bottom-96 lg:-right-52 -right-36 " />
-
-      <div className="flex flex-col md:flex-row items-center justify-end md:justify-between gap-10 h-screen container mx-auto px-4 md:px-0 py-4 md:py-0 relative">
-        <div>
-          <h3 className="text-2xl lg:text-6xl font-black text-restro-green-dark">Cafe. Restaurant.</h3>
-          <h3 className="text-2xl lg:text-6xl font-black text-restro-green-light outline-text">Hotel. Bar.</h3>
+      {/* Header */}
+      <header className="relative border-b bg-white/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <Link to="/">
+            <img src={Logo} alt="RestroPRO" className="h-10" />
+          </Link>
+          <Link 
+            to="/login"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-restro-green transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Retour à la connexion
+          </Link>
         </div>
-        <div className="bg-white rounded-2xl px-8 py-8 w-full sm:w-96 mx-8 sm:mx-0 shadow-2xl">
-          <div className="flex items-center justify-between">
-            <div className="text-restro-green-dark text-xl font-medium">
-              Reset Password
-            </div>
-            <div>
-              <img src={Logo} className="h-16" />
-            </div>
+      </header>
+
+      <main className="relative flex items-center justify-center py-16 md:py-24">
+        <div className="w-full max-w-md px-4 sm:px-6">
+          {/* Form Container */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <span className="bg-gradient-to-r from-restro-green-dark via-restro-green to-restro-green-dark bg-clip-text text-transparent">
+                Réinitialisation du mot de passe
+              </span>
+            </h1>
+            <p className="text-gray-600">
+              Entrez votre nouveau mot de passe ci-dessous
+            </p>
           </div>
 
-          <form className="mt-6" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Password Field */}
             <div>
-              <label className="block" htmlFor="password">
-                New Password
+              <label className="block text-gray-700 font-medium mb-2" htmlFor="password">
+                Nouveau mot de passe
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                required
-                placeholder="Enter Your New password here..."
-                className="mt-1 block w-full bg-gray-100 px-4 py-3 rounded-xl"
-              />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                  <Lock className="w-5 h-5" />
+                </div>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                  className="block w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-restro-green/20 focus:border-restro-green transition-colors"
+                  placeholder="••••••••"
+                />
+              </div>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="block w-full mt-6 bg-restro-green text-white rounded-xl px-4 py-3 transition hover:scale-105 active:scale-95 hover:shadow-xl hover:shadow-green-800/20"
+              className="w-full bg-restro-green hover:bg-restro-green-dark text-white px-8 py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-restro-green/20 flex items-center justify-center gap-2 group"
             >
-              Reset Password
+              Réinitialiser le mot de passe
+              <Lock className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </button>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
