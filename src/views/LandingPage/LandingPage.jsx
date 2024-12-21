@@ -15,7 +15,7 @@ import Footer from './Footer';
 
 export default function LandingPage() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white overflow-x-hidden relative">
       {/* Navbar */}
       <LNavbar />
 
