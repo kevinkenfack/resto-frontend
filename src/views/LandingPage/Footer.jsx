@@ -156,7 +156,7 @@ const Footer = () => {
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span>Développé avec ❤️ par</span>
               <a 
-                href="https://uiflow.in"
+                href="https://kevinkenfack.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-restro-green hover:text-restro-green-dark font-medium"
