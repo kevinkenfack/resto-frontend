@@ -161,7 +161,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="text-restro-green hover:text-restro-green-dark font-medium"
               >
-                UIFLOW
+                Kevin Kenfack
               </a>
             </div>
           </div>
